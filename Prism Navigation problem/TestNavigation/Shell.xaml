@@ -1,0 +1,42 @@
+﻿<Window
+    x:Class="TestNavigation.Shell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="clr-namespace:Common;assembly=Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TestNavigation"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:moduleV="clr-namespace:ProgramModule.Views;assembly=ProgramModule"
+    xmlns:moduleVM="clr-namespace:ProgramModule.ViewModels;assembly=ProgramModule"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:viewModels="clr-namespace:TestNavigation.ViewModels"
+    xmlns:views="clr-namespace:TestNavigation.Views"
+    Title="MainWindow"
+    Width="525"
+    Height="350"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModels:ToolbarViewModel}">
+            <views:Toolbar />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ViewAViewModel}">
+            <views:ViewA />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type moduleVM:ModuleViewModel}">
+            <moduleV:ModuleView />
+        </DataTemplate>
+
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Header" Value="{Binding TabHeader, FallbackValue=''}" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ContentControl prism:RegionManager.RegionName="{x:Static common:RegionNames.Toolbar}" />
+        <TabControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static common:RegionNames.Body}" />
+    </Grid>
+</Window>
