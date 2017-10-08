@@ -2,6 +2,7 @@
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
+using Prism.Unity;
 using ProgramModule.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -26,11 +27,7 @@ namespace ProgramModule
         {
             this.regionManager.RegisterViewWithRegion(RegionNames.Body, typeof(ModuleViewModel));
             //this.regionManager.RegisterViewWithRegion(RegionNames.ProgramContent, typeof(ProgramsViewModel));
-            //this.regionManager.RegisterViewWithRegion(RegionNames.ProgramContent, typeof(EditProgramViewModel));
-            this.regionManager.RegisterViewWithRegion(RegionNames.ProgramContent,
-                () => this.container.Resolve<ProgramsViewModel>());
-            this.regionManager.RegisterViewWithRegion(RegionNames.ProgramContent,
-                    () => this.container.Resolve<EditProgramViewModel>());
+            this.container.RegisterTypeForNavigation<ProgramsViewModel>();
         }
     }
 }
